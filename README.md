@@ -1,64 +1,47 @@
-# Project description
+# ImageHandler
 
-### Objective:
-#### Create a program that generates a graphical interface in which the menu has a single option:
+A Python desktop application that loads image metadata from `.bdjson` files and renders the images in a graphical interface.
 
-* Abrir base de datos
+## What it does
 
-When the button is pressed, the machine's file picker wil display and allow the user to select a file with the **.bdjson** extension. 
+1. Opens a file picker filtered to `.bdjson` files
+2. Parses the JSON array of `{ url, nombre }` objects
+3. Downloads each image via HTTP
+4. Displays all images horizontally at 100×100 px with their names centered below
 
-If the user clicks cancel, or does not select a valid file, the interface will do nothing. But if the user select a file with the indicated extension, the program will proceed with the following step. 
+## Tech Stack
 
-> Files with the *.bdjson* extension have the following form:
+- Python 3
+- `requests` — HTTP image fetching
+- `Pillow` — image processing
+- `tkinter` — GUI (standard library)
+
+## Setup
+
+```bash
+# Create and activate virtual environment
+pyenv exec python3 -m venv .venv
+source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+## Usage
+
+```bash
+python main.py
+```
+
+Click **"Abrir base de datos"** and select a `.bdjson` file.
+
+## Input Format
 
 ```json
 [
-    {
-        "url" : "https://....",
-        "nombre" "Imagen 1"
-    },
-    {
-        "url" : "https://....",
-        "nombre" "Imagen 2"
-    }
-    ...
+  { "url": "https://example.com/image1.jpg", "nombre": "Image 1" },
+  { "url": "https://example.com/image2.jpg", "nombre": "Image 2" }
 ]
 ```
 
-It is a list of dictionaries, where each one of the dictionaries corresponds to the information of an image with the data of the URL, as well as the name of said image. 
-
-When a valid file is selected, the program goes to the URL of each of the images and download the content of it. 
-
-When you have successfully downloaded the image, the program should be able to display all the images horizontally, within the empty space of the graphical interface. 
-
-Images must be displayed in a size of ***100(height) x 100(width)***. 
-
-The name of the image will be displayed under the corresponding one, aligned to the center.
-- The process of obtaining the images must be done with the ``` requests ``` library.
-- Image processing should be done with the ``` Pillow ``` library in case it is necessary
-- The file ***requirements.txt*** of your environment must be sent
-
----
-
-## Project setup
-
-I recommend to stablish a virtual enviroment by using pyenv:
-
-```bash
-    $ pyenv exec python3 -m venv .venv
-    $ source .venv/bin/activate
-```
-
-Update apt:
-
-```bash
-    $ apt update
-```
-
-Install *requeriments.txt* by using:
-
-```python
-    pip install -r requirements.txt
-```
-
-
+An `example.bdjson` file is included in the repository.
